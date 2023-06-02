@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\Models\Currency;
 
 class UpdateCurrencyRates extends Command
 {
@@ -26,12 +27,31 @@ class UpdateCurrencyRates extends Command
     public function handle()
     {
         $url = 'http://www.cbr.ru/scripts/XML_daily.asp';
-        $data = file_get_contents($url);
-        $xml = simplexml_load_string($data);
+    $data = file_get_contents($url);
+    $xml = simplexml_load_string($data);
+    
+    $currencies = $xml->Valute;
+    
+    foreach ($currencies as $currency) {
+        $name = (string) $currency->Name;
+        $rate = (float) str_replace(',', '.', $currency->Value);
         
-        // Обработка XML и обновление данных в таблице currency
-        // ...
+        // Проверяем, существует ли запись в таблице для данной валюты
+        $existingCurrency = Currency::where('name', $name)->first();
         
-        $this->info('Currency rates updated successfully.');
+        if ($existingCurrency) {
+            // Обновляем курс валюты
+            $existingCurrency->rate = $rate;
+            $existingCurrency->save();
+        } else {
+            // Создаем новую запись в таблице
+            Currency::create([
+                'name' => $name,
+                'rate' => $rate,
+            ]);
+        }
+    }
+    
+    $this->info('Currency rates updated successfully.');
     }
 }
