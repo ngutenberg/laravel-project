@@ -15,7 +15,7 @@ use App\Http\Controllers\CurrencyController;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    return $request->user(); //маршрут, который требует аутентификации
 });
 Route::middleware('auth:api')->group(function () {
     Route::get('/currencies', [CurrencyController::class, 'index']);
