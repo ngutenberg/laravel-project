@@ -11,6 +11,9 @@ use App\Http\Controllers\CurrencyController;
 | Here is where you can register API routes for your application. These
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "api" middleware group. Make something great!
+|В этом коде мы определяем два маршрута: /currencies и /currency/{id}.
+|Первый маршрут обрабатывается методом index() контроллера CurrencyController,
+| а второй маршрут обрабатывается методом show($id).
 |
 */
 
