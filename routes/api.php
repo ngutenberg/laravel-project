@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request; //представляет HTTP-запрос
+use Illuminate\Support\Facades\Route;//для определения маршрутов
 use App\Http\Controllers\CurrencyController;
 /*
 |--------------------------------------------------------------------------
