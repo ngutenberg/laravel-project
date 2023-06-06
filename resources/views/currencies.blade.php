@@ -14,7 +14,7 @@
         <tbody>
             @foreach ($currencies as $currency)
                 <tr>
-                    <td>{{ $currency->id }}</td>
+                   <td> <A HREF ="http://127.0.0.1/currency/{{ $currency->id }}">{{ $currency->id }}</A> </td>
                     <td>{{ $currency->name }}</td>
                     <td>{{ $currency->rate }}</td>
                 </tr>

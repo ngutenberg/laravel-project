@@ -24,3 +24,19 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/currencies', [CurrencyController::class, 'index']);
     Route::get('/currency/{id}', [CurrencyController::class, 'show']);
 });
+
+
+// jwt install внизу https://jwt-auth.readthedocs.io/en/develop/quick-start/#update-your-user-model
+Route::group([
+
+    'middleware' => 'api',
+    'prefix' => 'auth'
+
+], function ($router) {
+
+    Route::post('login', 'AuthController@login');
+    Route::post('logout', 'AuthController@logout');
+    Route::post('refresh', 'AuthController@refresh');
+    Route::post('me', 'AuthController@me');
+
+});
