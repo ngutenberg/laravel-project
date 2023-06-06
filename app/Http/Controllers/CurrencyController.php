@@ -18,6 +18,6 @@ class CurrencyController extends Controller
     {
         $currency = Currency::findOrFail($id);
 
-        return response()->json($currency);
+        return view('currency.show', ['currency' => $currency]); //представление show.blade.php с передачей данных о валюте
     }
 }

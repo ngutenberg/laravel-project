@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Currency;
 use Illuminate\Support\Facades\View;
+use App\Http\Controllers\CurrencyController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,3 +23,4 @@ Route::get('/currencies', function () {
 
     return View::make('currencies')->with('currencies', $currencies);
 });
+Route::get('/currency/{id}', [CurrencyController::class, 'show']);
