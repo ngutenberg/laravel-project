@@ -1,29 +1,35 @@
-<?php
+<?php 
 
-use Illuminate\Database\Migrations\Migration; //предоставляет базовую функциональность для создания и изменения схемы базы данных с помощью миграций.
-use Illuminate\Database\Schema\Blueprint; //предоставляет средства для определения структуры таблицы базы данных.
-use Illuminate\Support\Facades\Schema; // предоставляет фасад для работы с схемой базы данных.
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('currencies', function (Blueprint $table) { /**создает таблицу в базе данных.Метод create принимает название таблицы, в котором определяется структура таблицы с помощью объекта Blueprint. */
-            $table->increments('id');
-        $table->string('name');
-        $table->decimal('rate', 8, 2);
-        $table->timestamps();
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->rememberToken();
+            $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void //будет выполнен при откате миграции. Внутри этого метода определяется логика удаления таблицы "currencies" с помощью
+    public function down()
     {
-        Schema::dropIfExists('currencies');
+        Schema::dropIfExists('users');
     }
-};
+}

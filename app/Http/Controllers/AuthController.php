@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-
+use JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
+//контроллер будет работать с Bearer авторизацией при входе (login), обновлении токена (refresh), получении информации о текущем пользователе (me) и выходе (logout).
 class AuthController extends Controller
 {
     /**
@@ -15,7 +17,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+       $this->middleware('auth:api', ['except' => ['login']]);
     }
 
     /**
@@ -27,7 +29,7 @@ class AuthController extends Controller
     {
         $credentials = request(['email', 'password']);
 
-        if (! $token = auth()->attempt($credentials)) {
+        if (!$token = JWTAuth::attempt($credentials)) {// auth()->attempt($credentials) было
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
@@ -63,6 +65,7 @@ class AuthController extends Controller
      */
     public function refresh()
     {
+        $this->middleware('auth:api');
         return $this->respondWithToken(auth()->refresh());
     }
 
@@ -82,3 +85,4 @@ class AuthController extends Controller
         ]);
     }
 }
+
