@@ -16,7 +16,7 @@ class CurrencyController extends Controller
 
     public function show($id)
     {
-        $currency = Currency::findOrFail($id);
+        $currency = Curreny::findOrFail($id);
 
         return view('currency.show', ['currency' => $currency]); //представление show.blade.php с передачей данных о валюте
     }

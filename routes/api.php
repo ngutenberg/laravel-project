@@ -17,7 +17,7 @@ use App\Http\Controllers\CurrencyController;
 | а второй маршрут обрабатывается методом show($id).
 |
 */
-
+Route::post('/register', 'AuthController@register');
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user(); //маршрут, который требует аутентификации
 });
